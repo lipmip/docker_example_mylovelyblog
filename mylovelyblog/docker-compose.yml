@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  blog:
+    image: blog:3
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./db:/app/db
+  
+  postgres:
+    image: postgres:15-alpine
+    volumes:
+      - ./db:/var/lib/postgres/data
+    environment:
+      - "POSTGRES_DB=blog"
+      - "POSTGRES_USER=blog"
+      - "POSTGRES_PASSWORD=blog"
+    ports: 
+      - "5432:5432"
